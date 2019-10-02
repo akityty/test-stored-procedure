@@ -3,6 +3,7 @@ package konkon.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
@@ -46,12 +47,28 @@ import javax.persistence.*;
         @StoredProcedureParameter(name = "price", mode = ParameterMode.IN, type = Double.class),
         @StoredProcedureParameter(name = "quantity", mode = ParameterMode.IN, type = Double.class)})
 
+@NamedStoredProcedureQuery(
+        name = "updateProduct",
+        procedureName = "sp_updateProduct",
+        parameters = {
+                @StoredProcedureParameter(name = "inputId", mode = ParameterMode.IN, type = Long.class),
+                @StoredProcedureParameter(name = "inputActive", mode = ParameterMode.IN, type = Integer.class),
+                @StoredProcedureParameter(name = "inputCreateDate", mode = ParameterMode.IN,type = java.sql.Timestamp.class),
+                @StoredProcedureParameter(name = "inputDescription", mode = ParameterMode.IN, type = String.class),
+                @StoredProcedureParameter(name = "inputImage", mode = ParameterMode.IN, type = String.class),
+                @StoredProcedureParameter(name = "inputName", mode = ParameterMode.IN, type = String.class),
+                @StoredProcedureParameter(name = "inputPrice", mode = ParameterMode.IN, type = Double.class),
+                @StoredProcedureParameter(name = "inputQuantity", mode = ParameterMode.IN, type = Double.class)
+        }
+)
+
+
 public class Product {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   @DateTimeFormat(pattern = "yyyy-mm-dd")
-  private String createDate;
+  private Date createDate;
   private String image;
   private String name;
   private Double price;
@@ -67,11 +84,11 @@ public class Product {
     this.id = id;
   }
 
-  public String getCreateDate() {
+  public Date getCreateDate() {
     return createDate;
   }
 
-  public void setCreateDate(String createDate) {
+  public void setCreateDate(Date createDate) {
     this.createDate = createDate;
   }
 
@@ -123,7 +140,7 @@ public class Product {
     this.active = active;
   }
 
-  public Product(String createDate, String image, String name, Double price, Double quantity, String description, Integer active) {
+  public Product(Date createDate, String image, String name, Double price, Double quantity, String description, Integer active) {
     this.createDate = createDate;
     this.image = image;
     this.name = name;

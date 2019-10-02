@@ -84,6 +84,19 @@ public class ProductRepositoryImpl implements ProductRepository {
 
   @Override
   public void update(Product product) {
+    java.text.SimpleDateFormat sdf =
+            new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+    String createDate = sdf.format(product.getCreateDate());
+    StoredProcedureQuery spAddProduct = em.createNamedStoredProcedureQuery("updateProduct");
+    spAddProduct.setParameter("inputId", product.getId());
+    spAddProduct.setParameter("inputActive",product.getActive());
+    spAddProduct.setParameter("inputCreateDate", Timestamp.valueOf(createDate));
+    spAddProduct.setParameter("inputDescription", product.getDescription());
+    spAddProduct.setParameter("inputImage", product.getImage());
+    spAddProduct.setParameter("inputName", product.getName());
+    spAddProduct.setParameter("inputPrice", product.getPrice());
+    spAddProduct.setParameter("inputQuantity", product.getQuantity());
+    spAddProduct.execute();
   }
 }

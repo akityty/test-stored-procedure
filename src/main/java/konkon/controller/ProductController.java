@@ -33,7 +33,7 @@ public class ProductController {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
     try {
       Date lDate = simpleDateFormat.parse(productform.getCreateDate());
-      Product productObject = new Product(productform.getCreateDate(), fileName, productform.getName(), productform.getPrice(), productform.getQuantity(), productform.getDescription(), productform.getActive());
+      Product productObject = new Product(lDate, fileName, productform.getName(), productform.getPrice(), productform.getQuantity(), productform.getDescription(), productform.getActive());
       productService.add(productObject);
       ModelAndView modelAndView = new ModelAndView("redirect:/product/products");
       modelAndView.addObject("product", productObject);
@@ -65,19 +65,20 @@ public class ProductController {
   }
 
   @PostMapping("/edit")
-  public ModelAndView editProduct(@ModelAttribute ProductForm productForm, BindingResult result) {
+  public ModelAndView editProduct(@ModelAttribute ProductForm productForm, BindingResult result) throws ParseException {
     String fileName = productService.uploadFile(productForm, result);
-
     Product productObject = productService.findById(productForm.getId());
     if (!fileName.equals("")) {
       productObject.setImage(fileName);
     }
-    productObject.setCreateDate(productForm.getCreateDate());
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
+    Date lDate = simpleDateFormat.parse(productForm.getCreateDate());
+    productObject.setCreateDate(lDate);
     productObject.setName(productForm.getName());
     productObject.setPrice(productForm.getPrice());
     productObject.setQuantity(productForm.getQuantity());
     productObject.setDescription(productForm.getDescription());
-    productService.save(productObject);
+    productService.update(productObject);
     ModelAndView modelAndView = new ModelAndView("redirect:/product/products");
     modelAndView.addObject("product", productObject);
     return modelAndView;
