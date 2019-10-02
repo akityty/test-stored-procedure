@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/product/layout::head">
+</head>
+<body>
+<p>
+    <a th:href="@{/product/products}">Back to list</a>
+</p>
+<div>
+
+    <form th:action="@{/product/edit}" method="post" enctype="multipart/form-data">
+        <div>
+            <span>ID: </span>
+            <input type="text" id="id" name="id" th:value="${product.id}" readonly>
+        </div>
+        <div>
+            <span>Date: </span>
+            <input type="text" id="createDate" name="createDate" th:value="${product.createDate}">
+        </div>
+        <div>
+            <span>Name: </span>
+            <input type="text" id="name" name="name" th:value="${product.name}">
+        </div>
+        <div>
+            <span>Image: </span>
+            <input type="file" name="image" id="image" th:text="${product.image}">
+            <img width="50px" height="50px" th:src="@{'/i/' + ${product.image}}">
+        </div>
+        <div>
+            <span>price: </span>
+            <input type="text" id="price" name="price" th:value="${product.price}">
+        </div>
+        <div>
+            <span>Quantity: </span>
+            <input type="text" id="quantity" name="quantity" th:value="${product.quantity}">
+        </div>
+        <div>
+            <span>Description: </span>
+            <input type="text" id="description" name="description" th:value="${product.description}">
+        </div>
+        <div>
+            <span>Active: </span>
+            <input type="text" id="active" name="active" th:value="${product.active}">
+        </div>
+
+        <div>
+            <input type="submit" value="Edit">
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/product/layout::head">
+</head>
+<body>
+<h3>Create new product</h3>
+<p>
+    <a th:href="@{/product/products}">Back to list</a>
+</p>
+<div id="form">
+    <form th:action="@{/product/create}" th:object="${product}" novalidate="novalidate" method="post" enctype="multipart/form-data">
+        <div>
+            <label>Date: </label>
+            <input type="date" name="date" id="date" th:field="*{createDate}">
+        </div>
+        <div>
+            <label>Image: </label>
+            <input type="file" name="image" id="image" th:field="*{image}">
+        </div>
+        <div>
+            <label>Name: </label>
+            <input type="text" name="name" id="name" th:field="*{name}">
+        </div>
+        <div>
+            <label>Price:</label>
+            <input type="text" name="price" id="price" th:field="*{price}">
+        </div>
+        <div>
+            <label>Quantity:</label>
+            <input type="text" name="quantity" id="quantity" th:field="*{quantity}">
+        </div>
+        <div>
+            <label>Description: </label>
+            <input type="text" name="description" id="description" th:field="*{description}">
+        </div>
+        <div>
+            <label>Active: </label>
+            <input type="text" name="active" id="active" th:field="*{active}">
+        </div>
+
+        <div>
+            <input type="submit" value="Create">
+        </div>
+    </form>
+</div>
+</body>
+</html>
