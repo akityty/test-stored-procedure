@@ -43,16 +43,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     List<Product> products = findByNameQuery.getResultList();
     return products;
   }
-
-  @Override
-  public void save(Product product) {
-    if (product.getId() != null) {
-      em.merge(product);
-    } else {
-      add(product);
-    }
-  }
-
   @Override
   public void delete(Long id) {
     StoredProcedureQuery deleteProductQuery = em.createNamedStoredProcedureQuery("deleteProduct");

@@ -35,13 +35,6 @@ public class ProductServiceImpl implements ProductService {
   public List<Product> findByName(String name) {
     return productRepository.findByName(name);
   }
-
-  @Override
-  public void save(Product product) {
-    productRepository.save(product);
-  }
-
-
   @Override
   public void delete(Long id) {
     productRepository.delete(id);
